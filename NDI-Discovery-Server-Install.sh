@@ -10,16 +10,18 @@ echo "### Immersive Design Studios ###"
 echo "################################"
 echo
 echo Update and Upgrade Debian, then install iperf3, apache2 and curl
-apt update && apt upgrade -y
-apt install iperf3 -y                     # needed for test ethernet bandwith
-apt install apache2 -y                    # needed for NDI-Discovery-log remotely visible
-apt install curl -y                       # probably to be deprecated if I automate this script entirely 
+  apt update && apt upgrade -y
+  apt install iperf3 -y                     # needed for test ethernet bandwith
+  apt install apache2 -y                    # needed for NDI-Discovery-log remotely visible
+  apt install curl -y                       # probably to be deprecated if I automate this script entirely 
 
+sleep 1
 
-timedatectl set-timezone America/Toronto  # Set local time
+echo "Setting Montreal timezone" 
+  timedatectl set-timezone America/Toronto  # Set local time
 
 echo "empty /etc/motd and adjust /etc/issue"
-rm /etc/motd && touch /etc/motd           # delete original file and create an empty one
+  rm /etc/motd && touch /etc/motd           # delete original file and create an empty one
 
 cat > /etc/issue << "EOD"                 # create a custom file with role, and IP address
 Debian GNU/Linux 11 \n \4 \l
@@ -32,6 +34,7 @@ Debian GNU/Linux 11 \n \4 \l
 
 EOD
 
+# Create CANVAS logo in a file
 cat > /root/canvas-logo.txt << "EOL"
                                                                                                                         
                                                                                                                         
@@ -52,27 +55,26 @@ EOL
 
 ############################## NDI Installation script ##############################
 
-echo "Please wait while downloading latest NDI SDK V5..."
-sleep 3
-
-if [ ! -f "Install_NDI_SDK_v5_Linux.tar.gz" ]; then
-    wget https://downloads.ndi.tv/SDK/NDI_SDK_Linux/Install_NDI_SDK_v5_Linux.tar.gz
-fi
-if [ ! -f "Install_NDI_SDK_v5_Linux.sh" ]; then
-    tar -xvf Install_NDI_SDK_v5_Linux.tar.gz
-fi
-if [ ! -f "/NDI SDK for Linux/bin/x86_64-linux-gnu/ndi-directory-service" ]; then
-  echo "y" | ./Install_NDI_SDK_v5_Linux.sh
-fi
+echo "Downloading latest NDI SDK V5..."
+sleep 1
+  if [ ! -f "Install_NDI_SDK_v5_Linux.tar.gz" ]; then
+      wget https://downloads.ndi.tv/SDK/NDI_SDK_Linux/Install_NDI_SDK_v5_Linux.tar.gz
+  fi
+  if [ ! -f "Install_NDI_SDK_v5_Linux.sh" ]; then
+      tar -xvf Install_NDI_SDK_v5_Linux.tar.gz
+  fi
+  if [ ! -f "/NDI SDK for Linux/bin/x86_64-linux-gnu/ndi-directory-service" ]; then
+    echo "y" | ./Install_NDI_SDK_v5_Linux.sh
+  fi
 
 sleep 1
 
 echo "Clean Directory"
-rm Install_NDI_SDK_v5_Linux.tar.gz
-rm Install_NDI_SDK_v5_Linux.sh
-mv "/root/NDI SDK for Linux/bin/x86_64-linux-gnu/ndi-directory-service" /root/ndi-discovery-server
-rm -r 'NDI SDK for Linux'
-echo done
+  rm Install_NDI_SDK_v5_Linux.tar.gz
+  rm Install_NDI_SDK_v5_Linux.sh
+  mv "/root/NDI SDK for Linux/bin/x86_64-linux-gnu/ndi-directory-service" /root/ndi-discovery-server
+  rm -r 'NDI SDK for Linux'
+  echo done
 
 sleep 1
 
@@ -90,7 +92,7 @@ printf "%s" "$(<$logo)" >> /var/www/html/ndi-discovery-log.txt
 echo " " >> /var/www/html/ndi-discovery-log.txt
 clear
 echo
-echo "=== Immersive Design Studios ===" #| sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n'
+echo "=== Immersive Design Studios ===" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' 
 echo
 /root/ndi-discovery-server\
 | tee -a /var/www/html/ndi-discovery-log-all/ndi-discovery-log-"$now".txt /var/www/html/ndi-discovery-log.txt\
@@ -108,7 +110,7 @@ systemctl restart $ndi-discovery-server.service
 echo "Service restarted"
 
 else
-# create service file
+# create service for the NDI Discovery Server
 echo "Creating NDI Discovery Service"
 cat > /etc/systemd/system/ndi-discovery-server.service << "EOT"
 [Unit]
@@ -130,7 +132,7 @@ fi
 
 cat > /etc/systemd/system/iperf3.service << "EOS"
 [Unit]
-Description=iperf3 in server mode after booting with auto restart if fail
+Description=start iperf3 in server mode at boot
 After=multi-user.target
 
 [Service]
@@ -149,12 +151,12 @@ clear
 sleep 1
 
 echo "Enable and start services"
-systemctl daemon-reload
-systemctl enable ndi-discovery-server.service
-systemctl enable iperf3.service
-systemctl start ndi-discovery-server.service
-systemctl start iperf3.service
-echo "Service Started"
-sleep 2
-clear
+  systemctl daemon-reload
+  systemctl enable ndi-discovery-server.service
+  systemctl enable iperf3.service
+  systemctl start ndi-discovery-server.service
+  systemctl start iperf3.service
+  echo "all service Started"
+  sleep 1
+  clear
 exit 0
