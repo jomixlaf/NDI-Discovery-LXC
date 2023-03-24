@@ -79,23 +79,23 @@ echo "Clean Directory"
 sleep 1
 
 echo "Create the script for NDI Discovery"
-cat > /root/ndi-discovery-server-script.sh << "EOF"
-#! /bin/bash
-now=$(date +"%F-T%H:%M:%S:%p")
-logo="/root/canvas-logo.txt"
-rm       /var/www/html/ndi-discovery-log.txt
-touch    /var/www/html/ndi-discovery-log.txt
-mkdir -p /var/www/html/ndi-discovery-log-all
-echo "Immersive Design Studios" "$now" > /var/www/html/ndi-discovery-log.txt
-echo " " >> /var/www/html/ndi-discovery-log.txt
-printf "%s" "$(<$logo)" >> /var/www/html/ndi-discovery-log.txt
-echo " " >> /var/www/html/ndi-discovery-log.txt
-clear
-echo
-echo
-/root/ndi-discovery-server\
-| tee -a /var/www/html/ndi-discovery-log-all/ndi-discovery-log-"$now".txt /var/www/html/ndi-discovery-log.txt\
-| tail -F /var/www/html/ndi-discovery-log.txt
+cat > /root/ndi-discovery-server-script.sh <<- "EOF"
+  #! /bin/bash
+  now=$(date +"%F-T%H:%M:%S:%p")
+  logo="/root/canvas-logo.txt"
+  rm       /var/www/html/ndi-discovery-log.txt
+  touch    /var/www/html/ndi-discovery-log.txt
+  mkdir -p /var/www/html/ndi-discovery-log-all
+  printf "%s" "$(<$logo)" > /var/www/html/ndi-discovery-log.txt
+  echo " " >> /var/www/html/ndi-discovery-log.txt
+  echo "Immersive Design Studios" "$now" > /var/www/html/ndi-discovery-log.txt
+  echo " " >> /var/www/html/ndi-discovery-log.txt
+  clear
+  echo
+  echo
+  /root/ndi-discovery-server\
+  | tee -a /var/www/html/ndi-discovery-log-all/ndi-discovery-log-"$now".txt /var/www/html/ndi-discovery-log.txt\
+  | tail -F /var/www/html/ndi-discovery-log.txt
 
 EOF
 
