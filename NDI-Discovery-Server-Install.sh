@@ -94,8 +94,7 @@ clear
 echo
 echo
 /root/ndi-discovery-server\
-| tee -a /var/www/html/ndi-discovery-log-all/ndi-discovery-log-"$now".txt /var/www/html/ndi-discovery-log.txt\
-| tail -F /var/www/html/ndi-discovery-log.txt
+| tee -a /var/www/html/ndi-discovery-log-all/ndi-discovery-log-"$now".txt /var/www/html/ndi-discovery-log.txt
 
 EOF
 
