@@ -86,12 +86,12 @@ logo="/root/canvas-logo.txt"
 rm       /var/www/html/ndi-discovery-log.txt
 touch    /var/www/html/ndi-discovery-log.txt
 mkdir -p /var/www/html/ndi-discovery-log-all
+echo "Immersive Design Studios" "$now" > /var/www/html/ndi-discovery-log.txt
 echo " " >> /var/www/html/ndi-discovery-log.txt
 printf "%s" "$(<$logo)" >> /var/www/html/ndi-discovery-log.txt
 echo " " >> /var/www/html/ndi-discovery-log.txt
-echo "Immersive Design Studios" "$now" > /var/www/html/ndi-discovery-log.txt
-echo " " >> /var/www/html/ndi-discovery-log.txt
 clear
+echo
 echo
 /root/ndi-discovery-server\
 | tee -a /var/www/html/ndi-discovery-log-all/ndi-discovery-log-"$now".txt /var/www/html/ndi-discovery-log.txt\
@@ -157,21 +157,21 @@ echo "Enable and start services"
   systemctl start iperf3.service
 
 clear
-sleep 0.5
+sleep 1
 if (systemctl -q is-active iperf3.service)
         then
                 echo -e " \xe2\x9c\x85  iperf3 is running."
         else 
                 echo -e " \xe2\x9d\x8c  iperf3 is not running"
 fi
-sleep 0.5
+sleep 1
 if (systemctl -q is-active apache2.service)
         then
                 echo -e " \xe2\x9c\x85  Apache2 is running."
         else 
                 echo -e " \xe2\x9d\x8c  Apache2 is  not running"
 fi
-sleep 0.5
+sleep 1
 if (systemctl -q is-active ndi-discovery-server.service)
         then
                 echo -e " \xe2\x9c\x85  NDI Discovery Server is running."
