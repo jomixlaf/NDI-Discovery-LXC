@@ -92,7 +92,6 @@ printf "%s" "$(<$logo)" >> /var/www/html/ndi-discovery-log.txt
 echo " " >> /var/www/html/ndi-discovery-log.txt
 clear
 echo
-echo "=== Immersive Design Studios ===" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' 
 echo
 /root/ndi-discovery-server\
 | tee -a /var/www/html/ndi-discovery-log-all/ndi-discovery-log-"$now".txt /var/www/html/ndi-discovery-log.txt\
@@ -156,7 +155,28 @@ echo "Enable and start services"
   systemctl enable iperf3.service
   systemctl start ndi-discovery-server.service
   systemctl start iperf3.service
-  echo "all service Started"
-  sleep 1
-  clear
-exit 0
+
+clear
+sleep 0.5
+if (systemctl -q is-active iperf3.service)
+        then
+                echo -e " \xe2\x9c\x85  iperf3 is running."
+        else 
+                echo -e " \xe2\x9d\x8c  iperf3 is not running"
+fi
+sleep 0.5
+if (systemctl -q is-active apache2.service)
+        then
+                echo -e " \xe2\x9c\x85  Apache2 is running."
+        else 
+                echo -e " \xe2\x9d\x8c  Apache2 is  not running"
+fi
+sleep 0.5
+if (systemctl -q is-active ndi-discovery-server.service)
+        then
+                echo -e " \xe2\x9c\x85  NDI Discovery Server is running."
+        else 
+                echo -e " \xe2\x9d\x8c  NDI Discovery Server is not running"
+fi
+sleep 0.5 
+echo "congrats"
