@@ -86,15 +86,16 @@ logo="/root/canvas-logo.txt"
 rm       /var/www/html/ndi-discovery-log.txt
 touch    /var/www/html/ndi-discovery-log.txt
 mkdir -p /var/www/html/ndi-discovery-log-all
-echo "Immersive Design Studios" "$now" > /var/www/html/ndi-discovery-log.txt
-echo " " >> /var/www/html/ndi-discovery-log.txt
 printf "%s" "$(<$logo)" >> /var/www/html/ndi-discovery-log.txt
+echo " " >> /var/www/html/ndi-discovery-log.txt
+echo " " >> /var/www/html/ndi-discovery-log.txt
+echo " " >> /var/www/html/ndi-discovery-log.txt
+echo "Immersive Design Studios" "$now" >> /var/www/html/ndi-discovery-log.txt
 echo " " >> /var/www/html/ndi-discovery-log.txt
 clear
 echo
 echo
-/root/ndi-discovery-server\
-| tee -a /var/www/html/ndi-discovery-log-all/ndi-discovery-log-"$now".txt /var/www/html/ndi-discovery-log.txt
+/root/ndi-discovery-server | tee -a /var/www/html/ndi-discovery-log-all/ndi-discovery-log-"$now".txt /var/www/html/ndi-discovery-log.txt
 
 EOF
 
@@ -154,8 +155,6 @@ echo "Enable and start services"
   systemctl enable iperf3.service
   systemctl start ndi-discovery-server.service
   systemctl start iperf3.service
-
-clear
 sleep 1
 if (systemctl -q is-active iperf3.service)
         then
