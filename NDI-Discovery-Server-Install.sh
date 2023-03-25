@@ -5,7 +5,8 @@ CHECK_CROSS=" \xe2\x9d\x8c"
 
 sleep 2
 
-echo "let's add some basic shortcut into bashrc file"
+echo "Let's add some basic shortcut into bashrc file"
+
 cat > ~/bashrc <<"EOB"
 export LS_OPTIONS='--color=auto'
 eval "$(dircolors)"
