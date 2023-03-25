@@ -184,3 +184,4 @@ if (systemctl -q is-active ndi-discovery-server.service)
 fi
 sleep 0.5 
 echo "congrats"
+
