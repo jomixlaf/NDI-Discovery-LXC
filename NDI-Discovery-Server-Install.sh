@@ -1,11 +1,11 @@
 #!/bin/bash
 export PAGER=cat
 CHECK_MARK=" \xe2\x9c\x85"
-CHECK_CROSS=" "\xe2\x9d\x8c"
+CHECK_CROSS=" \xe2\x9d\x8c"
 
+ping -c 1 8.8.8.8 &> /dev/null && echo -e "\\r${CHECK_MARK} Internet working" || echo -e "\\r${CHECK_CROSS} Internet not working"
 
-ping -c 1 8.8.8.8 &> /dev/null && echo -e "\\r${CHECK_MARK} Internet working || echo -e "\\r${CHECK_MARK} Internet not working"
-
+sleep 5
 
 clear                         #clear content of the screen
 
