@@ -1,11 +1,23 @@
 #!/bin/bash
-export PAGER=cat
+
 CHECK_MARK=" \xe2\x9c\x85"
 CHECK_CROSS=" \xe2\x9d\x8c"
 
-ping -c 1 8.8.8.8 &> /dev/null && echo -e "\\r${CHECK_MARK} Internet working" || echo -e "\\r${CHECK_CROSS} Internet not working"
+sleep 2
 
-sleep 5
+echo "let's add some basic shortcut into bashrc file"
+cat > ~/bashrc <<"EOB"
+export LS_OPTIONS='--color=auto'
+eval "$(dircolors)"
+alias ls='ls $LS_OPTIONS'
+alias ll='ls $LS_OPTIONS -l'
+alias l='ls $LS_OPTIONS -lA'
+alias uptodate="apt update && apt upgrade -y"
+alias pong=ping -c 1 8.8.8.8 &> /dev/null && echo -e "\\r${CHECK_MARK} Internet working, continue" || echo -e "\\r${CHECK_CROSS} Internet not working"
+
+EOB
+
+
 
 clear                         #clear content of the screen
 
@@ -23,7 +35,7 @@ echo Update and Upgrade Debian, then install iperf3, apache2 and curl
 
 sleep 1
 
-echo "Setting Montreal timezone" 
+echo "Set Toronto timezone" 
   timedatectl set-timezone America/Toronto  # Set local time
 
 echo "empty /etc/motd and adjust /etc/issue"
@@ -184,4 +196,3 @@ if (systemctl -q is-active ndi-discovery-server.service)
 fi
 sleep 0.5 
 echo "congrats"
-
