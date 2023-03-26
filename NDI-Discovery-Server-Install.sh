@@ -70,6 +70,9 @@ cat > /root/canvas-logo.txt << "EOL"
                                                                                                              
 EOL
 
+
+wget -cO https://immersivedesignstudios.com/wp-content/uploads/2017/05/CANVAS-1.png > /var/www/html/CANVAS-LOGO.png
+
 ############################## Startup script ##############################
 
 ############################## NDI Installation script ##############################
