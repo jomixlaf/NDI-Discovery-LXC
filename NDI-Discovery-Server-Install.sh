@@ -73,6 +73,10 @@ EOL
 
 wget -cO https://immersivedesignstudios.com/wp-content/uploads/2017/05/CANVAS-1.png > /var/www/html/CANVAS-LOGO.png
 
+
+{ crontab -l; echo '@daily /usr/bin/systemctl restart ndi-discovery-server.service'; } | crontab -
+
+
 ############################## Startup script ##############################
 
 ############################## NDI Installation script ##############################
