@@ -24,9 +24,9 @@ clear                         #clear content of the screen
 
 ############################## Startup script ##############################
 
-echo "################################"
-echo "### Immersive Design Studios ###"
-echo "################################"
+echo "######################################"
+echo "### NDI Discovery Server Automator ###"
+echo "######################################"
 echo
 echo Update and Upgrade Debian, then install iperf3, apache2 and curl
   apt update && apt upgrade -y
@@ -36,8 +36,8 @@ echo Update and Upgrade Debian, then install iperf3, apache2 and curl
 
 sleep 1
 
-echo "Set Toronto timezone" 
-  timedatectl set-timezone America/Toronto  # Set local time
+#echo "Set Toronto timezone" 
+  #timedatectl set-timezone America/Toronto  # Set local time
 
 echo "empty /etc/motd and adjust /etc/issue"
   rm /etc/motd && touch /etc/motd           # delete original file and create an empty one
@@ -48,35 +48,12 @@ Debian GNU/Linux 11 \n \4 \l
 ################################
 ##### NDI Discovery Server #####
 ################################
-### Immersive Design Studios ###
+########### JomixLaf ###########
 ################################
 
 EOD
 
-# Create CANVAS logo in a file
-cat > /root/canvas-logo.txt << "EOL"
-                                                                                                                        
-                                                                                                                        
-         .!5#&@P                 JP5P.        .5555.      ^P5P^  7P5P7        YP5P:    .P5PJ           ^JPBBBGY~.       
-       .G@@@@@@P                J@@@@&        :@@@@@^     J@@@J  :@@@@:      J@@@&     &@@@@J        ?@@@@&&&@@@@P      
-      7@@@@B!.                 ~@@@@@@G       :@@@@@@J    ?@@@J   7@@@#     .@@@@.    G@@@@@@^      ~@@@#     Y@@@5     
-     ~@@@@^                   .@@@P^@@@J      :@@@@@@@G   ?@@@J    G@@@?    B@@@!    J@@@^P@@@.     :@@@&7.    ....     
-     #@@@7                    #@@&  Y@@@^     :@@@#.&@@&. ?@@@J     &@@@.  7@@@P    ~@@@Y  &@@#      :G@@@@@&G?:        
-     #@@@7           .@@@@.  P@@@^   #@@@.    :@@@#  G@@@~?@@@J     :@@@G .@@@&    .@@@#   ~@@@P        ^?G#@@@@&J      
-     ~@@@@^         .#@@@P  7@@@@&&&&@@@@#    :@@@#   ?@@@&@@@J      J@@@~P@@@:    #@@@@&&&&@@@@7   ^~~^     .P@@@5     
-      7@@@@B!.   .~P@@@@G  :@@@&GBBBBG#@@@P   :@@@#    ^@@@@@@J       B@@@@@@?    P@@@#GBBBBG&@@@:  B@@@?     7@@@B     
-       .P@@@@@@@@@@@@@#~  .@@@@:       B@@@?  :@@@&     .#@@@@J       .@@@@@G    ?@@@B       :@@@@.  5@@@@&&&@@@@B.     
-          ~5B&@@@&#P7.    ~P55!        .555Y  .555?       ?55P^        ^5555     Y555.        ~55P~    ^?PGBBGY7.        
-                                                                                                             
-EOL
-
-
-wget -cO https://immersivedesignstudios.com/wp-content/uploads/2017/05/CANVAS-1.png > /var/www/html/CANVAS-LOGO.png
-
-
 { crontab -l; echo '@daily /usr/bin/systemctl restart ndi-discovery-server.service'; } | crontab -
-
-
 ############################## Startup script ##############################
 
 ############################## NDI Installation script ##############################
@@ -108,15 +85,9 @@ echo "Create the script for NDI Discovery"
 cat > /root/ndi-discovery-server-script.sh <<"EOF"
 #! /bin/bash
 now=$(date +"%F-T%H:%M:%S:%p")
-logo="/root/canvas-logo.txt"
 rm       /var/www/html/ndi-discovery-log.txt
 touch    /var/www/html/ndi-discovery-log.txt
 mkdir -p /var/www/html/ndi-discovery-log-all
-printf "%s" "$(<$logo)" >> /var/www/html/ndi-discovery-log.txt
-echo " " >> /var/www/html/ndi-discovery-log.txt
-echo " " >> /var/www/html/ndi-discovery-log.txt
-echo " " >> /var/www/html/ndi-discovery-log.txt
-echo "Immersive Design Studios" "$now" >> /var/www/html/ndi-discovery-log.txt
 echo " " >> /var/www/html/ndi-discovery-log.txt
 clear
 echo
