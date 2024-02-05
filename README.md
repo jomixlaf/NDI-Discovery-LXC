@@ -32,6 +32,12 @@ if you run this machine for ever like I do every 00:00 it restart the NDI Discov
 The previous data can be seen in the folder located here /var/www/html/ndi-discovery-log-all/ 
 This is very usefull when troubleshooting NDI Connections. now the time seen in the log will always correspond to real time data.
 
+<img width="606" alt="image" src="https://github.com/jomixlaf/NDI-Discovery-LXC/assets/100269973/53b2a138-872a-4c43-b462-6d84ff11dc25">
+
+![image](https://github.com/jomixlaf/NDI-Discovery-LXC/assets/100269973/8a24080c-4443-4ca0-ba0e-88da9a9c836e)
+
+
+
 
 I hope you have with this like I do as I said, not a programmer at all I learded everything by myselft thanks the internet ! 
 
